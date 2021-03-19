@@ -45,6 +45,7 @@ public class CompositIterator<E extends Object> implements Iterator<E>
             throw new NoSuchElementException();
         }
 
+        @SuppressWarnings("iteration:method.invocation.invalid")
         final E e = iterators[whichIterator].next();
 
         // When exhausting one iterator, go to the next.

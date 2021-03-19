@@ -8,6 +8,8 @@ import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import org.checkerframework.checker.iteration.qual.HasNext;
+
 /**
  * A collection of static methods to help {@link FileRingInputStream} and {@link FileRingOutputStream} operate.
  *
@@ -62,7 +64,8 @@ public class FileRing {
      * @param ringSize The ring size.
      * @return An iterator that lazily creates {@link FileInputStream} objects.
      */
-    public static Iterator<FileInputStream> buildInputStreamIterator(
+    @SuppressWarnings("iteration:return.type.incompatible")
+    public static @HasNext Iterator<FileInputStream> buildInputStreamIterator(
             final File dir,
             final String prefix,
             final String suffix,

@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
 
+import org.checkerframework.checker.iteration.qual.HasNext;
+
 /**
  * An input stream that is a concatination of several other input streams.
  */
@@ -19,7 +21,7 @@ public class ConcatinatedInputStream extends InputStream {
      */
     private final boolean tryFullRead = true;
 
-    public ConcatinatedInputStream(final Iterator<? extends InputStream> inputStreams) {
+    public ConcatinatedInputStream(final @HasNext Iterator<? extends InputStream> inputStreams) {
         this.inputStreams = inputStreams;
         if (this.inputStreams.hasNext()) {
             this.inputStream = inputStreams.next();

@@ -7,6 +7,8 @@ import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+
 /**
  * A very naive method to build a simple GeoJSON object.
  */
@@ -52,6 +54,7 @@ public class SimpleGeoJson {
         }
     }
 
+    @SideEffectFree
     private static void writeFeature(final OutputStream out, final Feature f, final GridToWorld gridToWorld) throws IOException {
         out.write("{\n".getBytes(utf8));
         out.write("\"type\": \"Feature\",\n".getBytes(utf8));
@@ -69,6 +72,7 @@ public class SimpleGeoJson {
         out.write("}".getBytes(utf8));
     }
 
+    @SideEffectFree
     private static void writePoint(final OutputStream out, final Point p, final GridToWorld gridToWorld) throws IOException {
         final double[] coords = gridToWorld.convert(p);
         if (!Double.isNaN(coords[0]) && !Double.isNaN(coords[1])) {
@@ -116,6 +120,8 @@ public class SimpleGeoJson {
         return write(tile, gridToWorld);
     }
 
+
+    @SideEffectFree
     private static void appendProperty(final OutputStream out, final Map.Entry<?, Object> entry) throws IOException {
         // Write entry and fetch the next.
         final String key = entry.getKey().toString();

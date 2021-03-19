@@ -250,6 +250,7 @@ public class KDTree<K extends Comparable<K>, V> {
             }
 
             @Override
+            @SuppressWarnings("iteration:method.invocation.invalid")  // can be fixed by rewriting anonymous class
             public K[] next() {
                 return itr.next().key;
             }
@@ -272,6 +273,7 @@ public class KDTree<K extends Comparable<K>, V> {
             }
 
             @Override
+            @SuppressWarnings("iteration:method.invocation.invalid")  // can be fixed by rewriting anonymous class
             public V next() {
                 return itr.next().value;
             }

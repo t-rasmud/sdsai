@@ -46,6 +46,7 @@ public class PngWriter {
         }
 
         // Build an ImageWriter to use.
+        @SuppressWarnings("iteration:method.invocation.invalid")
         final ImageWriter writer = ImageIO.getImageWritersBySuffix("png").next();
 
         // Get and adjust the default meta data for the image to have our tEXtComment parts.

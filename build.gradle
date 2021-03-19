@@ -1,6 +1,7 @@
 plugins {
   id 'java-library'
   id 'eclipse'
+  id 'org.checkerframework' version '0.5.17' apply false
 }
 
 description """Simple datastructures and algorithms."""
@@ -20,6 +21,27 @@ allprojects {
   java {
     withJavadocJar()
     withSourcesJar()
+  }
+
+}
+
+subprojects { subproject ->
+  apply plugin: 'org.checkerframework'
+
+  checkerFramework {
+    checkers = ['org.checkerframework.checker.iteration.IterationChecker']
+    extraJavacArgs = [
+            '-AsuppressWarnings=contracts.conditional.postcondition.not.satisfied'
+    ]
+  }
+  // To use a locally-built Checker Framework, run gradle with "-PcfLocal".
+  if (project.hasProperty("cfLocal")) {
+    def cfHome = String.valueOf(System.getenv("CHECKERFRAMEWORK"))
+    dependencies {
+      compileOnly files(cfHome + "/checker/dist/checker-qual.jar")
+      testCompileOnly files(cfHome + "/checker/dist/checker-qual.jar")
+      checkerFramework files(cfHome + "/checker/dist/checker.jar")
+    }
   }
 
 }
